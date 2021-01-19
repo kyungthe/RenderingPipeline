@@ -141,11 +141,15 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="MyMath.h" />
+    <ClInclude Include="RenderingPipeline.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="RenderingPipeline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Main.rc" />
