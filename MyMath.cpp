@@ -32,17 +32,17 @@ MyVector MyVector::operator-() const
 	return MyVector(-x, -y, -z, -w);
 }
 
-MyVector MyVector::operator-(MyVector InVector)
+MyVector MyVector::operator-(MyVector InVector) const
 {
 	return MyVector(x - InVector.x, y - InVector.y, z - InVector.z, w);
 }
 
-MyVector MyVector::operator/(float Value)
+MyVector MyVector::operator/(float Value) const
 {	
 	return MyVector(x / Value, y / Value, z / Value, w);
 }
 
-MyVector& MyVector::operator=(MyVector& InMyVector)
+MyVector& MyVector::operator=(const MyVector& InMyVector)
 {
 	x = InMyVector.x;
 	y = InMyVector.y;
@@ -52,12 +52,12 @@ MyVector& MyVector::operator=(MyVector& InMyVector)
 	return *this;
 }
 
-float MyVector::Dot(MyVector InMyVector)
+float MyVector::Dot(MyVector InMyVector) const
 {
 	return x * InMyVector.x + y * InMyVector.y + z * InMyVector.z;
 }
 
-MyVector MyVector::Cross(MyVector InMyVector)
+MyVector MyVector::Cross(MyVector InMyVector) const
 {
 	return MyVector(
 		y * InMyVector.z - z * InMyVector.y,
@@ -67,7 +67,7 @@ MyVector MyVector::Cross(MyVector InMyVector)
 	);
 }
 
-float MyVector::Length()
+float MyVector::Length() const
 {
 	MyVector result = LengthSq();
 	
@@ -84,7 +84,7 @@ void MyVector::Normalize()
 	w /= length;
 }
 
-MyVector MyVector::LengthSq()
+MyVector MyVector::LengthSq() const
 {
 	return MyVector(x * x, y * y, z * z, 0.0f);
 }
@@ -108,4 +108,12 @@ MyMatrix::MyMatrix
 		MyVector(m20, m21, m22, m23),
 		MyVector(m30, m31, m32, m33)}
 {
+}
+
+MyMatrix::MyMatrix(const MyMatrix& other)
+{
+	v[0] = other.v[0];
+	v[1] = other.v[1];
+	v[2] = other.v[2];
+	v[3] = other.v[3];
 }

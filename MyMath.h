@@ -7,17 +7,17 @@ public:
     MyVector(const MyVector& InMyVector);
 
     MyVector operator-() const;
-    MyVector operator-(MyVector InMyVector);
-    MyVector operator/(float Value);
-    MyVector& operator=(MyVector& InMyVector);
+    MyVector operator-(MyVector InMyVector) const;
+    MyVector operator/(float Value) const;
+    MyVector& operator=(const MyVector& InMyVector);
 
-    float Dot(MyVector InMyVector);
-    MyVector Cross(MyVector InMyVector);
-    float Length();
+    float Dot(MyVector InMyVector) const;
+    MyVector Cross(MyVector InMyVector) const;
+    float Length() const;
     void Normalize();
 
 private:
-    MyVector LengthSq();
+    MyVector LengthSq() const;
 
 public:
 	float x, y, z, w;
@@ -33,6 +33,7 @@ public:
         float m20, float m21, float m22, float m23,
         float m30, float m31, float m32, float m33
     );
+    MyMatrix(const MyMatrix& other);
 
 
 private:

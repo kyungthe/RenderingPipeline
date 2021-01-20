@@ -1,6 +1,5 @@
 #include "RenderingPipeline.h"
 #include <cmath>
-#include "MyMath.h"
 
 void RenderingPipeline::Excute()
 {
@@ -34,14 +33,19 @@ void RenderingPipeline::Excute()
     MyVector Target(0.0f, 0.0f, 0.0f, 0.0f);
     MyVector Up(0.0f, 1.0f, 0.0f, 0.0f);
 
-    MyVector w = (Target - Position) / (Target - Position).Length();
+    MyMatrix ViewMatrix = GetViewMatrix(Position, Target, Up);
+}
+
+MyMatrix RenderingPipeline::GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up)
+{
+    MyVector w = (TargetPosition - CameraPosition) / (TargetPosition - CameraPosition).Length();
     MyVector u = Up.Cross(w) / Up.Cross(w).Length();
     MyVector v = w.Cross(u);
 
-    MyMatrix ViewMatrix(
+    return MyMatrix(
         u.x, v.x, w.x, 0.0f,
         u.y, v.y, w.y, 0.0f,
         u.z, v.z, w.z, 0.0f,
-        -Position.Dot(u), -Position.Dot(v), -Position.Dot(w), 1.0f
+        -CameraPosition.Dot(u), -CameraPosition.Dot(v), -CameraPosition.Dot(w), 1.0f
     );
 }
