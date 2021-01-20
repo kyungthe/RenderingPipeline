@@ -23,8 +23,6 @@ void RenderingPipeline::Excute()
         { 0.f, 0.f, 0.f, 1.f }
     };
 
-    float view[4][4] = { 0.f };
-
     float mTheta = 1.5f * 3.141592654f;
     float mPhi = 0.785398163f;
     float mRadius = 5.0f;
@@ -37,8 +35,11 @@ void RenderingPipeline::Excute()
     MyVector Target(0.0f, 0.0f, 0.0f, 0.0f);
     MyVector Up(0.0f, 1.0f, 0.0f, 0.0f);
 
+    MyMatrix WorldMatrix;
     MyMatrix ViewMatrix = GetViewMatrix(Position, Target, Up);
     MyMatrix ProjectionMatrix = GetProjectionMatrix(0.25f * 3.1415926535f, static_cast<float>(Width) / Height, 1.0f, 1000.0f);
+
+    MyMatrix WorldViewProjectionMatrix = WorldMatrix * ViewMatrix * ProjectionMatrix;
 }
 
 MyMatrix RenderingPipeline::GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up)

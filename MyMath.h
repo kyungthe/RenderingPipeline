@@ -35,6 +35,8 @@ public:
     );
     MyMatrix(const MyMatrix& other);
 
+    MyMatrix operator*(const MyMatrix& other);
+
 
 private:
     union

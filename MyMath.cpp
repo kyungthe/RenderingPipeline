@@ -90,10 +90,10 @@ MyVector MyVector::LengthSq() const
 }
 
 MyMatrix::MyMatrix() :
-	 v{ MyVector(),
-		MyVector(),
-		MyVector(),
-		MyVector() }
+	 v{ MyVector(1.0f, 0.0f, 0.0f, 0.0f),
+		MyVector(0.0f, 1.0f, 0.0f, 0.0f),
+		MyVector(0.0f, 0.0f, 1.0f, 0.0f),
+		MyVector(0.0f, 0.0f, 0.0f, 1.0f) }
 {
 }
 
@@ -116,4 +116,45 @@ MyMatrix::MyMatrix(const MyMatrix& other)
 	v[1] = other.v[1];
 	v[2] = other.v[2];
 	v[3] = other.v[3];
+}
+
+MyMatrix MyMatrix::operator*(const MyMatrix& other)
+{
+	MyMatrix mResult;
+	// Cache the invariants in registers
+	float x = m[0][0];
+	float y = m[0][1];
+	float z = m[0][2];
+	float w = m[0][3];
+	// Perform the operation on the first row
+	mResult.m[0][0] = (other.m[0][0] * x) + (other.m[1][0] * y) + (other.m[2][0] * z) + (other.m[3][0] * w);
+	mResult.m[0][1] = (other.m[0][1] * x) + (other.m[1][1] * y) + (other.m[2][1] * z) + (other.m[3][1] * w);
+	mResult.m[0][2] = (other.m[0][2] * x) + (other.m[1][2] * y) + (other.m[2][2] * z) + (other.m[3][2] * w);
+	mResult.m[0][3] = (other.m[0][3] * x) + (other.m[1][3] * y) + (other.m[2][3] * z) + (other.m[3][3] * w);
+	// Repeat for all the other rows
+	x = m[1][0];
+	y = m[1][1];
+	z = m[1][2];
+	w = m[1][3];
+	mResult.m[1][0] = (other.m[0][0] * x) + (other.m[1][0] * y) + (other.m[2][0] * z) + (other.m[3][0] * w);
+	mResult.m[1][1] = (other.m[0][1] * x) + (other.m[1][1] * y) + (other.m[2][1] * z) + (other.m[3][1] * w);
+	mResult.m[1][2] = (other.m[0][2] * x) + (other.m[1][2] * y) + (other.m[2][2] * z) + (other.m[3][2] * w);
+	mResult.m[1][3] = (other.m[0][3] * x) + (other.m[1][3] * y) + (other.m[2][3] * z) + (other.m[3][3] * w);
+	x = m[2][0];
+	y = m[2][1];
+	z = m[2][2];
+	w = m[2][3];
+	mResult.m[2][0] = (other.m[0][0] * x) + (other.m[1][0] * y) + (other.m[2][0] * z) + (other.m[3][0] * w);
+	mResult.m[2][1] = (other.m[0][1] * x) + (other.m[1][1] * y) + (other.m[2][1] * z) + (other.m[3][1] * w);
+	mResult.m[2][2] = (other.m[0][2] * x) + (other.m[1][2] * y) + (other.m[2][2] * z) + (other.m[3][2] * w);
+	mResult.m[2][3] = (other.m[0][3] * x) + (other.m[1][3] * y) + (other.m[2][3] * z) + (other.m[3][3] * w);
+	x = m[3][0];
+	y = m[3][1];
+	z = m[3][2];
+	w = m[3][3];
+	mResult.m[3][0] = (other.m[0][0] * x) + (other.m[1][0] * y) + (other.m[2][0] * z) + (other.m[3][0] * w);
+	mResult.m[3][1] = (other.m[0][1] * x) + (other.m[1][1] * y) + (other.m[2][1] * z) + (other.m[3][1] * w);
+	mResult.m[3][2] = (other.m[0][2] * x) + (other.m[1][2] * y) + (other.m[2][2] * z) + (other.m[3][2] * w);
+	mResult.m[3][3] = (other.m[0][3] * x) + (other.m[1][3] * y) + (other.m[2][3] * z) + (other.m[3][3] * w);
+	return mResult;
 }
