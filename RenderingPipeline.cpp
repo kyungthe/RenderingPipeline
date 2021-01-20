@@ -34,6 +34,7 @@ void RenderingPipeline::Excute()
     MyVector Up(0.0f, 1.0f, 0.0f, 0.0f);
 
     MyMatrix ViewMatrix = GetViewMatrix(Position, Target, Up);
+    MyMatrix ProjectionMatrix = GetProjectionMatrix(0.25f * 3.1415926535f, 800.0f / 600.0f, 1.0f, 1000.0f);
 }
 
 MyMatrix RenderingPipeline::GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up)
@@ -47,5 +48,15 @@ MyMatrix RenderingPipeline::GetViewMatrix(const MyVector& CameraPosition, const 
         u.y, v.y, w.y, 0.0f,
         u.z, v.z, w.z, 0.0f,
         -CameraPosition.Dot(u), -CameraPosition.Dot(v), -CameraPosition.Dot(w), 1.0f
+    );
+}
+
+MyMatrix RenderingPipeline::GetProjectionMatrix(const float FovAngleY, const float Aspect, float NearZ, float FarZ)
+{
+    return MyMatrix(
+        1 / (Aspect * tanf(FovAngleY / 2)), 0.0f, 0.0f, 0.0f,
+        0.0f, 1 / tanf(FovAngleY / 2), 0.0f, 0.0f,
+        0.0f, 0.0f, FarZ / (FarZ - NearZ), 1.0f,
+        0.0f, 0.0f, -NearZ * FarZ / (FarZ - NearZ), 0.0f
     );
 }
