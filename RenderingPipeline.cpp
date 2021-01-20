@@ -1,6 +1,10 @@
 #include "RenderingPipeline.h"
 #include <cmath>
 
+RenderingPipeline::RenderingPipeline(int InWidth, int InHeight) : Width(InWidth), Height(InHeight)
+{
+}
+
 void RenderingPipeline::Excute()
 {
     float v1[3] = { -1.0f, -1.0f, -1.0f };
@@ -34,7 +38,7 @@ void RenderingPipeline::Excute()
     MyVector Up(0.0f, 1.0f, 0.0f, 0.0f);
 
     MyMatrix ViewMatrix = GetViewMatrix(Position, Target, Up);
-    MyMatrix ProjectionMatrix = GetProjectionMatrix(0.25f * 3.1415926535f, 800.0f / 600.0f, 1.0f, 1000.0f);
+    MyMatrix ProjectionMatrix = GetProjectionMatrix(0.25f * 3.1415926535f, static_cast<float>(Width) / Height, 1.0f, 1000.0f);
 }
 
 MyMatrix RenderingPipeline::GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up)
