@@ -18,6 +18,8 @@ private:
 	// FarZ			: 먼 평면 거리
 	MyMatrix GetProjectionMatrix(const float FovAngleY, const float Aspect, float NearZ, float FarZ) const;
 
+	MyMatrix GetViewportMatrix(const float StartX, const float StartY, const float Width, const float Height, const float MaxZ, const float MinZ);
+
 private:
 	struct Vertex
 	{

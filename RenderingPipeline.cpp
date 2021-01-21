@@ -48,6 +48,8 @@ void RenderingPipeline::Excute()
     for (int i = 0; i < Vertices.size(); ++i)
     {
         Vertex v = VertexShader(Vertices[i]);
+        MyMatrix ViewportMatrix = GetViewportMatrix(0.0f, 0.0f, static_cast<float>(Width), static_cast<float>(Height), 1.0f, 0.0f);
+        v.Position = v.Position * ViewportMatrix;
         v = PixelShader(v);
     }
 }
@@ -73,6 +75,16 @@ MyMatrix RenderingPipeline::GetProjectionMatrix(const float FovAngleY, const flo
         0.0f, 1 / tanf(FovAngleY / 2), 0.0f, 0.0f,
         0.0f, 0.0f, FarZ / (FarZ - NearZ), 1.0f,
         0.0f, 0.0f, -NearZ * FarZ / (FarZ - NearZ), 0.0f
+    );
+}
+
+MyMatrix RenderingPipeline::GetViewportMatrix(const float StartX, const float StartY, const float Width, const float Height, const float MaxZ, const float MinZ)
+{
+    return MyMatrix(
+        Width / 2, 0.0f, 0.0f, 0.0f,
+        0.0f, -Height / 2, 0.0f, 0.0f,
+        0.0f, 0.0f, MaxZ - MinZ, 0.0f,
+        StartX + Width / 2, StartY + Height / 2, MinZ, 1.0f
     );
 }
 
