@@ -94,6 +94,9 @@ RenderingPipeline::Vertex RenderingPipeline::VertexShader(const Vertex InVertex)
 
     OutVertex.Position = OutVertex.Position * WorldViewProjectionMatrix;
 
+    OutVertex.Position = OutVertex.Position / OutVertex.Position.w;
+    OutVertex.Position.w = 1.0f;
+
     return OutVertex;
 }
 
