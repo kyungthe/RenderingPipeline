@@ -10,13 +10,13 @@ public:
 	void Excute();
 
 private:
-	MyMatrix GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up);
+	MyMatrix GetViewMatrix(const MyVector& CameraPosition, const MyVector& TargetPosition, const MyVector& Up) const;
 
 	// FovAngleY	: 수직 시야각(라디안)
 	// Aspect		: 종횡비(너비 / 높이)
 	// NearZ		: 가까운 평면 거리
 	// FarZ			: 먼 평면 거리
-	MyMatrix GetProjectionMatrix(const float FovAngleY, const float Aspect, float NearZ, float FarZ);
+	MyMatrix GetProjectionMatrix(const float FovAngleY, const float Aspect, float NearZ, float FarZ) const;
 
 private:
 	struct Vertex
@@ -28,11 +28,13 @@ private:
 		MyVector Position;
 	};
 
-	Vertex VertexShader(Vertex InVertex);
-	Vertex PixelShader(Vertex InVertex);
+	Vertex VertexShader(const Vertex InVertex) const;
+	Vertex PixelShader(const Vertex InVertex) const;
 
 private:
 	int Width;
 	int Height;
+
+	MyMatrix WorldViewProjectionMatrix;
 };
 

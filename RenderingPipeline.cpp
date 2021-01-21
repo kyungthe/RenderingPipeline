@@ -33,16 +33,16 @@ void RenderingPipeline::Excute()
     MyMatrix ViewMatrix = GetViewMatrix(Position, Target, Up);
     MyMatrix ProjectionMatrix = GetProjectionMatrix(0.25f * 3.1415926535f, static_cast<float>(Width) / Height, 1.0f, 1000.0f);
 
-    MyMatrix WorldViewProjectionMatrix = WorldMatrix * ViewMatrix * ProjectionMatrix;
+    WorldViewProjectionMatrix = WorldMatrix * ViewMatrix * ProjectionMatrix;
 
-    Vertex v1(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v2(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v3(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v4(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v5(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v6(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v7(1.0f, 1.0f, 1.0f, 1.0f);
-    Vertex v8(1.0f, 1.0f, 1.0f, 1.0f);
+    Vertex v1(-1.0f, -1.0f, -1.0f, 1.0f);
+    Vertex v2(-1.0f, +1.0f, -1.0f, 1.0f);
+    Vertex v3(+1.0f, +1.0f, -1.0f, 1.0f);
+    Vertex v4(+1.0f, -1.0f, -1.0f, 1.0f);
+    Vertex v5(-1.0f, -1.0f, +1.0f, 1.0f);
+    Vertex v6(-1.0f, +1.0f, +1.0f, 1.0f);
+    Vertex v7(+1.0f, +1.0f, +1.0f, 1.0f);
+    Vertex v8(+1.0f, -1.0f, +1.0f, 1.0f);
     vector<Vertex> Vertices = { v1, v2, v3, v4, v5, v6, v7, v8 };
 
     for (int i = 0; i < Vertices.size(); ++i)
@@ -78,9 +78,11 @@ MyMatrix RenderingPipeline::GetProjectionMatrix(const float FovAngleY, const flo
 
 RenderingPipeline::Vertex RenderingPipeline::VertexShader(const Vertex InVertex) const
 {
-    Vertex OutVertex;
+    Vertex OutVertex = InVertex;
 
+    OutVertex.Position = OutVertex.Position * WorldViewProjectionMatrix;
 
+    return OutVertex;
 }
 
 RenderingPipeline::Vertex RenderingPipeline::PixelShader(const Vertex InVertex) const

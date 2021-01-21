@@ -1,4 +1,7 @@
 #pragma once
+
+class MyMatrix;
+
 class MyVector
 {
 public:
@@ -7,9 +10,11 @@ public:
     MyVector(const MyVector& InMyVector);
 
     MyVector operator-() const;
-    MyVector operator-(MyVector InMyVector) const;
+    MyVector operator-(const MyVector& InMyVector) const;
     MyVector operator/(float Value) const;
     MyVector& operator=(const MyVector& InMyVector);
+
+    MyVector operator*(const MyMatrix& InMyMatrix) const;
 
     float Dot(MyVector InMyVector) const;
     MyVector Cross(MyVector InMyVector) const;
@@ -36,9 +41,10 @@ public:
     MyMatrix(const MyMatrix& other);
 
     MyMatrix operator*(const MyMatrix& other);
+    MyMatrix& operator=(const MyMatrix& other);
 
 
-private:
+public:
     union
     {
         MyVector v[4];

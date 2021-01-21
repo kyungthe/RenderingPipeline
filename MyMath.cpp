@@ -32,7 +32,7 @@ MyVector MyVector::operator-() const
 	return MyVector(-x, -y, -z, -w);
 }
 
-MyVector MyVector::operator-(MyVector InVector) const
+MyVector MyVector::operator-(const MyVector& InVector) const
 {
 	return MyVector(x - InVector.x, y - InVector.y, z - InVector.z, w);
 }
@@ -50,6 +50,16 @@ MyVector& MyVector::operator=(const MyVector& InMyVector)
 	w = InMyVector.w;
 
 	return *this;
+}
+
+MyVector MyVector::operator*(const MyMatrix& InMyMatrix) const
+{
+	return MyVector(
+		x * InMyMatrix._11 + x * InMyMatrix._21 + x * InMyMatrix._31 + x * InMyMatrix._41,
+		y * InMyMatrix._12 + y * InMyMatrix._22 + y * InMyMatrix._32 + y * InMyMatrix._42,
+		z * InMyMatrix._13 + z * InMyMatrix._23 + z * InMyMatrix._33 + z * InMyMatrix._43,
+		w * InMyMatrix._14 + w * InMyMatrix._24 + w * InMyMatrix._34 + w * InMyMatrix._44
+	);
 }
 
 float MyVector::Dot(MyVector InMyVector) const
@@ -157,4 +167,14 @@ MyMatrix MyMatrix::operator*(const MyMatrix& other)
 	mResult.m[3][2] = (other.m[0][2] * x) + (other.m[1][2] * y) + (other.m[2][2] * z) + (other.m[3][2] * w);
 	mResult.m[3][3] = (other.m[0][3] * x) + (other.m[1][3] * y) + (other.m[2][3] * z) + (other.m[3][3] * w);
 	return mResult;
+}
+
+MyMatrix& MyMatrix::operator=(const MyMatrix& other)
+{
+	v[0] = other.v[0];
+	v[1] = other.v[1];
+	v[2] = other.v[2];
+	v[3] = other.v[3];
+
+	return *this;
 }
