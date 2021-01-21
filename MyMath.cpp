@@ -29,7 +29,7 @@ MyVector::MyVector(const MyVector& InMyVector)
 
 MyVector MyVector::operator-() const
 {
-	return MyVector(-x, -y, -z, -w);
+	return MyVector(-x, -y, -z, w);
 }
 
 MyVector MyVector::operator-(const MyVector& InVector) const
