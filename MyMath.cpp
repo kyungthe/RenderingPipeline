@@ -55,10 +55,10 @@ MyVector& MyVector::operator=(const MyVector& InMyVector)
 MyVector MyVector::operator*(const MyMatrix& InMyMatrix) const
 {
 	return MyVector(
-		x * InMyMatrix._11 + x * InMyMatrix._21 + x * InMyMatrix._31 + x * InMyMatrix._41,
-		y * InMyMatrix._12 + y * InMyMatrix._22 + y * InMyMatrix._32 + y * InMyMatrix._42,
-		z * InMyMatrix._13 + z * InMyMatrix._23 + z * InMyMatrix._33 + z * InMyMatrix._43,
-		w * InMyMatrix._14 + w * InMyMatrix._24 + w * InMyMatrix._34 + w * InMyMatrix._44
+		x * InMyMatrix._11 + y * InMyMatrix._21 + z * InMyMatrix._31 + w * InMyMatrix._41,
+		x * InMyMatrix._12 + y * InMyMatrix._22 + z * InMyMatrix._32 + w * InMyMatrix._42,
+		x * InMyMatrix._13 + y * InMyMatrix._23 + z * InMyMatrix._33 + w * InMyMatrix._43,
+		x * InMyMatrix._14 + y * InMyMatrix._24 + z * InMyMatrix._34 + w * InMyMatrix._44
 	);
 }
 
