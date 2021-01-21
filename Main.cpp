@@ -151,7 +151,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
 
-            RenderingPipeline rp(WINDOW_WIDTH, WINDOW_HEIGHT);
+            RenderingPipeline rp(WINDOW_WIDTH, WINDOW_HEIGHT, hdc);
 
             rp.Excute();
 

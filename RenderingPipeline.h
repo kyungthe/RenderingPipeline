@@ -1,11 +1,12 @@
 #pragma once
 
 #include "MyMath.h"
+#include <Windows.h>
 
 class RenderingPipeline
 {
 public:
-	RenderingPipeline(int InWidth, int InHeight);
+	RenderingPipeline(int InWidth, int InHeight, HDC InHdc);
 
 	void Excute();
 
@@ -34,6 +35,8 @@ private:
 	Vertex PixelShader(const Vertex InVertex) const;
 
 private:
+	HDC Hdc;
+
 	int Width;
 	int Height;
 

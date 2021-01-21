@@ -4,7 +4,7 @@
 
 using namespace std;
 
-RenderingPipeline::RenderingPipeline(int InWidth, int InHeight) : Width(InWidth), Height(InHeight)
+RenderingPipeline::RenderingPipeline(int InWidth, int InHeight, HDC InHdc) : Width(InWidth), Height(InHeight), Hdc(InHdc)
 {
 }
 
@@ -51,6 +51,7 @@ void RenderingPipeline::Excute()
         MyMatrix ViewportMatrix = GetViewportMatrix(0.0f, 0.0f, static_cast<float>(Width), static_cast<float>(Height), 1.0f, 0.0f);
         v.Position = v.Position * ViewportMatrix;
         v = PixelShader(v);
+        SetPixel(Hdc, v.Position.x, v.Position.y, 0xFF000000);
     }
 }
 
